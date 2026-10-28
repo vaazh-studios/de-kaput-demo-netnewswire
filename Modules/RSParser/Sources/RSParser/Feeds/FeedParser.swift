@@ -48,6 +48,8 @@ public struct FeedParser {
 		// you might be doing a lot of parsing. (Such as in a feed reader.)
 
 		do {
+			// Some servers start a feed with a UTF-8 byte order mark; the parsers expect it gone.
+			let parserData = parserData.withoutUTF8BOM
 			let type = feedType(parserData)
 
 			switch type {

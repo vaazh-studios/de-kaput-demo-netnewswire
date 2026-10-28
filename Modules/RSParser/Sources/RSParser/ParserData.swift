@@ -18,4 +18,12 @@ public struct ParserData: Sendable {
 		self.url = url
 		self.data = data
 	}
+
+	/// The same bytes without a leading UTF-8 byte order mark, which some servers send.
+	var withoutUTF8BOM: ParserData {
+		guard data.starts(with: [0xEF, 0xBB, 0xBF]) else {
+			return self
+		}
+		return ParserData(url: url, data: data[3...])
+	}
 }
