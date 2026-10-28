@@ -52,8 +52,10 @@ public struct JSONFeedParser {
 	public static func parse(_ parserData: ParserData) throws -> ParsedFeed? {
 
 		// A JSON Feed is a JSON object: reject anything else before deserializing it.
+		// The data can be a slice (FeedParser drops a byte order mark), so its first
+		// index isn’t always 0: read the first byte with `first`, never `data[0]`.
 		let data = parserData.data
-		guard !data.isEmpty, data[0] == UInt8(ascii: "{") else {
+		guard data.first == UInt8(ascii: "{") else {
 			throw FeedParserError.invalidJSON
 		}
 
