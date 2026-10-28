@@ -51,7 +51,13 @@ public struct JSONFeedParser {
 
 	public static func parse(_ parserData: ParserData) throws -> ParsedFeed? {
 
-		guard let d = JSONUtilities.dictionary(with: parserData.data) else {
+		// A JSON Feed is a JSON object: reject anything else before deserializing it.
+		let data = parserData.data
+		guard !data.isEmpty, data[0] == UInt8(ascii: "{") else {
+			throw FeedParserError.invalidJSON
+		}
+
+		guard let d = JSONUtilities.dictionary(with: data) else {
 			throw FeedParserError.invalidJSON
 		}
 
