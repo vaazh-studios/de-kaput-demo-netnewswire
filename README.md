@@ -1,3 +1,5 @@
+> **de-kaput demo fork.** This fork of [Ranchero-Software/NetNewsWire](https://github.com/Ranchero-Software/NetNewsWire) shows [de-kaput](https://github.com/vaazh-studios/de-kaput) at work. The commit "Read JSON Feed attachment durations given in fractional seconds" plants a crash on purpose (a duration too large for an Int), and the pull requests labelled `de-kaput` reproduce it with a test, then fix it. Everything else is upstream NetNewsWire.
+
 <img src=Technotes/Images/icon_1024.png height=128 width=128 style="display: block; margin: auto;"> 
 
 # NetNewsWire

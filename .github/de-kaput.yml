@@ -1,0 +1,11 @@
+version: 1
+apps:
+  - platform: ios
+    crashlytics-app-id: "1:0:ios:demo"
+    modules:
+      # NetNewsWire runs its parser package's tests on the Mac (its macOS CI test plan,
+      # with signing off); the iOS app ships the same parser code.
+      - path: Modules/RSParser
+        xcode-scheme: RSParser
+        xcode-destination: "platform=macOS,arch=arm64"
+        xcode-args: ["CODE_SIGNING_ALLOWED=NO"]
