@@ -238,7 +238,8 @@ private extension JSONFeedParser {
 		let mimeType = attachmentObject[Key.mimeType] as? String
 		let title = attachmentObject[Key.title] as? String
 		let sizeInBytes = attachmentObject[Key.sizeInBytes] as? Int
-		let durationInSeconds = attachmentObject[Key.durationInSeconds] as? Int
+		// The spec allows any number of seconds, and podcast feeds often send fractions (1534.5).
+		let durationInSeconds = (attachmentObject[Key.durationInSeconds] as? Double).map { Int($0.rounded()) }
 
 		return ParsedAttachment(url: url, mimeType: mimeType, title: title, sizeInBytes: sizeInBytes, durationInSeconds: durationInSeconds, width: nil, height: nil, medium: nil)
 	}
